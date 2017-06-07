@@ -6,6 +6,14 @@
     float:right;
 }
 
+.warning {
+    float:right;
+}
+
+.success{
+    float:right;
+}
+
 .primary {
     float:right;
 }

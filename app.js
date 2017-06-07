@@ -15,7 +15,7 @@ const app = {
     ev.preventDefault()
     this.idRemoveCounter++;
     this.idPromoteCounter++;
-    this.idPromoteCounter++;
+    this.idIncreaseCounter++;
     this.idDecreaseCounter++;
     const f = ev.target
     const flick = {
@@ -66,7 +66,21 @@ const app = {
     //move inside removeFunction
     document.getElementById(removeButtonId).addEventListener('click', this.removeFunc.bind(this))
 
+    //move inside increase function
+    document.getElementById(increaseButtonID).addEventListener('click', this.increaseFunc.bind(this))
+
+    //move inside decrease function
+    document.getElementById(decreaseButtonID).addEventListener('click', this.decreaseFunc.bind(this))
+
     ++ this.max
+  },
+
+  increaseFunc(ev){
+    this.list.insertBefore(ev.target.parentNode, ev.target.parentNode.previousSibling)
+  },
+  
+  decreaseFunc(ev){
+    this.list.insertBefore(ev.target.parentNode, ev.target.parentNode.nextSibling.nextSibling)
   },
 
   promoteFunc(ev){
