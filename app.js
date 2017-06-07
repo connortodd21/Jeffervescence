@@ -2,6 +2,8 @@ const app = {
   arr : [],
   idPromoteCounter : 0,
   idRemoveCounter : 0,
+  idIncreaseCounter: 0,
+  idDecreaseCounter: 0,
   
   init(selectors) {        
     this.max = 0
@@ -13,6 +15,8 @@ const app = {
     ev.preventDefault()
     this.idRemoveCounter++;
     this.idPromoteCounter++;
+    this.idPromoteCounter++;
+    this.idDecreaseCounter++;
     const f = ev.target
     const flick = {
       id: this.max + 1,
@@ -36,10 +40,29 @@ const app = {
     button2.classList.add('button', 'alert')
     button2.innerText = 'Remove'
     listItem.appendChild(button2)
+
+    //increase button
+    var increaseButtonID = 'increaseButton' + this.idIncreaseCounter
+    const button3 = document.createElement('button')
+    button3.setAttribute('id', increaseButtonID)
+    button3.classList.add('button', 'success')
+    button3.innerText = 'Increase'
+    listItem.appendChild(button3)
+
+    //decrease button
+    var decreaseButtonID = 'decreaseButton' + this.idDecreaseCounter
+    const button4 = document.createElement('button')
+    button4.setAttribute('id', decreaseButtonID)
+    button4.classList.add('button', 'warning')
+    button4.innerText = 'Decrease'
+    listItem.appendChild(button4)
+    
     //adding buttons to list
     this.list.appendChild(listItem)
+    
     //move inside promoteFunction    
     document.getElementById(promoteButtonId).addEventListener('click', this.promoteFunc.bind(this))
+    
     //move inside removeFunction
     document.getElementById(removeButtonId).addEventListener('click', this.removeFunc.bind(this))
 
@@ -56,7 +79,7 @@ const app = {
   },
 
   removeFunc(ev){
-    console.log('inside removeFunc')
+    ev.target.parentNode.parentNode.removeChild(ev.target.parentNode)    
   },
 
   renderListItem(flick) {
