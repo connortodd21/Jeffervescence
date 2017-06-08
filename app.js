@@ -102,7 +102,7 @@ const app = {
     const keyB = keyA.dataset.key
     const num = this.arr.indexOf(keyB)
 
-    if(num <= 0){
+    if(this.arr[0] == keyA){
         return;
     }
 
