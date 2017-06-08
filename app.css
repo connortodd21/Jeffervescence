@@ -1,6 +1,7 @@
 body{
     color: black;
-
+    font-size: 20px;
+    font-weight: bold;
     background: red; /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, turquoise, green); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right,turquoise, green);
@@ -10,33 +11,45 @@ body{
     float: middle;
 }
 
+#addFlickButton:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
 #addFlickButton{
     border: 0;
     padding: 10px;
     color: black;
     background: #FFD700;
+    
 }
 
 .alert {
     float:right;
+    height: 34px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 .warning {
     float:right;
+    height: 34px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 .success{
     float:right;
+    height: 34px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 .primary {
     float:right;
+    height: 34px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 .promoted {
     background:#FFD700;
-    font-size: 20px;
-    color: black;
+    color:blue;
 }
 
 #flick-list > li{
@@ -44,5 +57,7 @@ body{
     margin: 40px;   
     width: 700px;
     list-style-type: none;
+    border-style: solid;
+    border-width: medium;
 
 }

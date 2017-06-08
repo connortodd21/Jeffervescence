@@ -1,9 +1,10 @@
 const app = {
   arr : [],
-  idPromoteCounter : 0,
-  idRemoveCounter : 0,
-  idIncreaseCounter: 0,
-  idDecreaseCounter: 0,
+  
+  idPromoteCounter : 0,         //counter for changing button ID later
+  idRemoveCounter : 0,          //counter for changing button ID later
+  idIncreaseCounter: 0,         //counter for changing button ID later
+  idDecreaseCounter: 0,         //counter for changing button ID later
   
   init(selectors) {        
     this.max = 0
@@ -15,19 +16,23 @@ const app = {
 
   addFlick(ev) {
     ev.preventDefault()
+    //counters for different button ID's to differentiate
     this.idRemoveCounter++;
     this.idPromoteCounter++;
     this.idIncreaseCounter++;
     this.idDecreaseCounter++;
+    //flick obj
     const f = ev.target
     const flick = {
       id: this.max + 1,
       name: f.flickName.value,
     }
     const listItem = this.renderListItem(flick)
-    this.arr.push(flick.name)
+    //add to front of array
+    this.arr.unshift(flick.name)
 
-
+    //add to local storage
+    localStorage.setItem('flick', JSON.stringify(this.flick))
     
     
      //decrease button
@@ -77,6 +82,8 @@ const app = {
     //move inside decrease function
     document.getElementById(decreaseButtonID).addEventListener('click', this.decreaseFunc.bind(this))
 
+    //add to list
+    this.list.insertBefore(listItem, this.list.firstChild)
     ++ this.max
     f.reset();
   },
@@ -89,7 +96,7 @@ const app = {
     if(num>=this.arr.length -1){
         return;
     }
-
+    //switching elements in the array
     const temp = this.arr[num + 1]
     this.arr[num] = temp
     this.arr[num + 1] = keyB
@@ -108,7 +115,7 @@ const app = {
     if(this.arr[0] == keyA){
         return;
     }
-
+    //switching elements in the array
     const temp = this.arr[num - 1]
     this.arr[num] = temp
     this.arr[num - 1] = keyB
@@ -117,16 +124,35 @@ const app = {
   },
 
   promoteFunc(ev){
+    //adding promoted class to the li to differentiate in css
     if(ev.target.parentNode.classList.contains('promoted')){
+        //remove promoted class
          ev.target.parentNode.classList.remove('promoted')
     }
     else{
+        //add promoted class
         ev.target.parentNode.classList.add('promoted')
     }
   },
 
   removeFunc(ev){
-    ev.target.parentNode.parentNode.removeChild(ev.target.parentNode)    
+
+
+    //remove from list on page
+    ev.target.parentNode.parentNode.removeChild(ev.target.parentNode)   
+    localStorage.setItem('flick', JSON.stringify(this.flick)) 
+
+    // //remove from array
+    // for(let i = 0; i<this.flick.length; i++){
+    //     const currendId = this.flick[i].id.toString() 
+    //     if(currendId === listItem.dataset.id){
+    //         this.flick.splice(i,1)
+    //         break;
+    //     }
+    // }
+
+
+
   },
 
   renderListItem(flick) {
