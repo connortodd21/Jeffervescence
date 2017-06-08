@@ -9,7 +9,9 @@ const app = {
     this.max = 0
     this.list = document.querySelector(selectors.listSelector)
     document.querySelector(selectors.formSelector).addEventListener('submit', this.addFlick.bind(this))
-  },
+    
+    //document.querySelector(selectors.listSelector).flickName.focus()
+},
 
   addFlick(ev) {
     ev.preventDefault()
@@ -24,6 +26,7 @@ const app = {
     }
     const listItem = this.renderListItem(flick)
     this.arr.push(flick.name)
+
 
     
     
@@ -74,8 +77,8 @@ const app = {
     //move inside decrease function
     document.getElementById(decreaseButtonID).addEventListener('click', this.decreaseFunc.bind(this))
 
-    document.getElementById('flick-form').value='';
     ++ this.max
+    f.reset();
   },
 
   increaseFunc(ev){
