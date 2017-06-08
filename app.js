@@ -25,21 +25,15 @@ const app = {
     const listItem = this.renderListItem(flick)
     this.arr.push(flick.name)
 
-    //promote button
-    var promoteButtonId = 'promoteButton' + this.idPromoteCounter
-    const button = document.createElement('button')
-    button.setAttribute('id', promoteButtonId)
-    button.classList.add('button', 'primary')
-    button.innerText = 'Promote'
-    listItem.appendChild(button)
     
-    //remove button
-    var removeButtonId = 'removeButton' + this.idRemoveCounter
-    const button2 = document.createElement('button')
-    button2.setAttribute('id', removeButtonId)
-    button2.classList.add('button', 'alert')
-    button2.innerText = 'Remove'
-    listItem.appendChild(button2)
+    
+     //decrease button
+    var decreaseButtonID = 'decreaseButton' + this.idDecreaseCounter
+    const button4 = document.createElement('button')
+    button4.setAttribute('id', decreaseButtonID)
+    button4.classList.add('button', 'warning')
+    button4.innerText = 'Decrease'
+    listItem.appendChild(button4)
 
     //increase button
     var increaseButtonID = 'increaseButton' + this.idIncreaseCounter
@@ -49,13 +43,21 @@ const app = {
     button3.innerText = 'Increase'
     listItem.appendChild(button3)
 
-    //decrease button
-    var decreaseButtonID = 'decreaseButton' + this.idDecreaseCounter
-    const button4 = document.createElement('button')
-    button4.setAttribute('id', decreaseButtonID)
-    button4.classList.add('button', 'warning')
-    button4.innerText = 'Decrease'
-    listItem.appendChild(button4)
+    //remove button
+    var removeButtonId = 'removeButton' + this.idRemoveCounter
+    const button2 = document.createElement('button')
+    button2.setAttribute('id', removeButtonId)
+    button2.classList.add('button', 'alert')
+    button2.innerText = 'Remove'
+    listItem.appendChild(button2)
+   
+    //promote button
+    var promoteButtonId = 'promoteButton' + this.idPromoteCounter
+    const button = document.createElement('button')
+    button.setAttribute('id', promoteButtonId)
+    button.classList.add('button', 'primary')
+    button.innerText = 'Promote'
+    listItem.appendChild(button)
     
     //adding buttons to list
     this.list.appendChild(listItem)
@@ -72,14 +74,42 @@ const app = {
     //move inside decrease function
     document.getElementById(decreaseButtonID).addEventListener('click', this.decreaseFunc.bind(this))
 
+    document.getElementById('flick-form').value='';
     ++ this.max
   },
 
   increaseFunc(ev){
+    const keyA = ev.target.parentNode.parentNode
+    const keyB = keyA.dataset.key
+    const num = this.arr.indexOf(keyB)
+
+    if(num>=this.arr.length -1){
+        return;
+    }
+
+    const temp = this.arr[num + 1]
+    this.arr[num] = temp
+    this.arr[num + 1] = keyB
+
+
+
     this.list.insertBefore(ev.target.parentNode, ev.target.parentNode.previousSibling)
   },
   
   decreaseFunc(ev){
+
+    const keyA = ev.target.parentNode.parentNode
+    const keyB = keyA.dataset.key
+    const num = this.arr.indexOf(keyB)
+
+    if(num <= 0){
+        return;
+    }
+
+    const temp = this.arr[num - 1]
+    this.arr[num] = temp
+    this.arr[num - 1] = keyB
+
     this.list.insertBefore(ev.target.parentNode, ev.target.parentNode.nextSibling.nextSibling)
   },
 

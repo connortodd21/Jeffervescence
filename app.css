@@ -1,6 +1,21 @@
-/*body{
-    background-image: url("https://joindiaspora.com/camo/c8ddc6250cf55b16506c88fd8a7ed41a3c017375/687474703a2f2f32342e6d656469612e74756d626c722e636f6d2f74756d626c725f6d65397a373630635a3631717a747168326f315f313335343233363035395f636f7665722e706e67")
-}*/
+body{
+    color: black;
+
+    background: red; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, turquoise, green); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right,turquoise, green);
+}
+#goldBlum{
+    color: black;
+    float: middle;
+}
+
+#addFlickButton{
+    border: 0;
+    padding: 10px;
+    color: black;
+    background: #FFD700;
+}
 
 .alert {
     float:right;
@@ -19,8 +34,9 @@
 }
 
 .promoted {
-    background:rgba(255, 255, 0, .3);
+    background:#FFD700;
     font-size: 20px;
+    color: black;
 }
 
 #flick-list > li{
