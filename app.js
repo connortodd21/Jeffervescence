@@ -25,24 +25,43 @@ load(){
     //turn flicksJSON into array
     const flicksArray = JSON.parse(flicksJSON)
      if (flicksArray) {
-      flicksArray
-        .reverse()
-        .map(this.addFlick.bind(this))
+      flicksArray.reverse().map(this.addFlick.bind(this))
+
+      for(let i = 0; i < flicksArray.length; i++){
+          if(flicksArray[i].promoted){
+            this.promoteFuncLoad.bind(this)(flicksArray[i])
+          }
+      }
     }
     
   },
 
-
-
+  promoteFuncLoad(flick){
+      const listItems = this.list.childNodes;
+      for(let i  =  0; i < listItems.length; i++){
+          if(listItems[i].dataset.id == flick.id.toString()){
+              listItems[i].classList.add('promoted')
+              break;
+          }
+      }
+    // if(ev.target.parentNode.classList.contains('promoted')){
+    //     //remove promoted class
+    //      ev.target.parentNode.classList.remove('promoted')
+    // }
+    // else{
+    //     //add promoted class
+    //     ev.target.parentNode.classList.add('promoted')
+    // }
+  },
 
 
 addFlick(flick){
     listItem = this.renderListItem(flick)
-    this.list
-      .insertBefore(listItem, this.list.firstChild)
-    
+    this.list.insertBefore(listItem, this.list.firstChild)
+    //console.log(flick)
     ++ this.max
     this.arr.unshift(flick)
+    //console.log(this.arr)
     this.save()
 
     //decrease button
@@ -104,9 +123,11 @@ addFlick(flick){
     const flick = {
       id: this.max + 1,
       name: f.flickName.value,
+      promoted: false,
     }
     //const listItem = this.renderListItem(flick)
-    //add to front of arrays
+    //add to front of array
+    //console.log(flick)
     this.addFlick(flick)
     this.save();
 
@@ -145,6 +166,8 @@ addFlick(flick){
 
 
     this.list.insertBefore(ev.target.parentNode, ev.target.parentNode.previousSibling)
+
+    this.save()
   },
   
   decreaseFunc(ev){
@@ -161,6 +184,8 @@ addFlick(flick){
     this.arr[num - 1] = keyB
 
     this.list.insertBefore(ev.target.parentNode, ev.target.parentNode.nextSibling.nextSibling)
+
+    this.save()
   
 },
 
@@ -169,11 +194,26 @@ addFlick(flick){
     if(ev.target.parentNode.classList.contains('promoted')){
         //remove promoted class
          ev.target.parentNode.classList.remove('promoted')
+         
+         for(let i = 0; i <this.arr.length; i++){
+             if(this.arr[i].id == ev.target.parentNode.dataset.id){
+                 this.arr[i].promoted = false;
+                 break;
+             }
+         }
     }
     else{
         //add promoted class
         ev.target.parentNode.classList.add('promoted')
+
+        for(let i = 0; i <this.arr.length; i++){
+             if(this.arr[i].id == ev.target.parentNode.dataset.id){
+                 this.arr[i].promoted = true;
+                 break;
+             }
+         }
     }
+    this.save()
   },
 
   removeFunc(ev){
@@ -182,14 +222,18 @@ addFlick(flick){
     //remove from list on page
     ev.target.parentNode.parentNode.removeChild(ev.target.parentNode)  
     
+
+    const listItem = ev.target.closest('.flick')
+
     //remove from array
-    for(let i = 0; i<this.arr.length; i++){
-        const currendId = this.arr[i].id.toString() 
-        if(currendId === listItem.dataset.id){
-            this.flick.splice(i,1)
-            break;
-        }
+    for (let i = 0; i < this.arr.length; i++) {
+      const currentId = this.arr[i].id.toString()
+      if (listItem.dataset.id === currentId) {
+        this.arr.splice(i, 1)
+        break
+      }
     }
+    //console.log(this.arr)
     this.save()
 
     
@@ -197,7 +241,7 @@ addFlick(flick){
 
 
   },
-  
+
   //add to local storage
   save(){
       localStorage.setItem('flick', JSON.stringify(this.arr))
@@ -205,6 +249,8 @@ addFlick(flick){
 
   renderListItem(flick) {
     const item = document.createElement('li')
+    item.classList.add('flick')
+    item.dataset.id = flick.id
     item.textContent = flick.name
     return item
   },
