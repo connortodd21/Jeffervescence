@@ -105,7 +105,9 @@ addFlick(flick){
 
     //add to list
     this.list.insertBefore(listItem, this.list.firstChild)
-    
+
+    //make text editabe
+    document.getElementsByTagName('flick').contentEditable = 'true'    
 }, 
 
 
@@ -113,18 +115,15 @@ addFlick(flick){
     
   addFlickViaForm(ev) {
     ev.preventDefault()
-    //counters for different button ID's to differentiate later on
-    this.idRemoveCounter++;
-    this.idPromoteCounter++;
-    this.idIncreaseCounter++;
-    this.idDecreaseCounter++;
     //flick obj
     const f = ev.target
     const flick = {
       id: this.max + 1,
       name: f.flickName.value,
       promoted: false,
+      year: f.flickYear.value,
     }
+    console.log(flick.year)
     //const listItem = this.renderListItem(flick)
     //add to front of array
     //console.log(flick)
@@ -251,7 +250,7 @@ addFlick(flick){
     const item = document.createElement('li')
     item.classList.add('flick')
     item.dataset.id = flick.id
-    item.textContent = flick.name
+    item.textContent = flick.name + ': ' + flick.year
     return item
   },
 }
